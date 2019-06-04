@@ -1,9 +1,67 @@
 {% extends "base.html" %}
 {% block title %}FX Settlement K{% endblock %}
 {% block body %}
+{% include "navbar.html" %}
 <div class="container">
   {% if user.is_authenticated %}
-  <div> {{ user.username }}님, 안녕하세요! </div>
+    {% if user.partner %}
+      <div class="row">
+        <!-- 이거안하면 표가 가운데로 안있고 끝까지 쭉 가있음 -->
+        <div class="col-sm-6 col-sm-offset-3">
+           <h2> 환영합니다.</h2>
+          <table class="table">
+            <tr>
+              <th>
+                업체이름
+              </th>
+              <td>
+             {{ user.partner.name }}
+             </td>
+            </tr>
+            <tr>
+              <th>
+                연락처
+              </th>
+              <td>
+              {{ user.partner.contact }}
+              </td>
+            </tr>
+            <tr>
+              <th>
+                주소
+              </th>
+              <td>
+            {{ user.partner.address }}
+             </td>
+            </tr>
+            <tr>
+              <th>
+                업체소개
+              </th>
+              <td>
+            {{ user.partner.description }}
+             </td>
+            </tr>
+          </table>
+          <a href="/partner/edit/">
+            <button class="btn btn-default btn-block">
+            수정하기
+            </button>
+          </a>
+        </div>
+      </div>
+    {% else %}
+        추가정보를 입력해주세요
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <form action="" method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button class="btn btn-default btn-block">저장하기</button>
+            </form>
+          </div>
+        </div>
+    {% endif %}
   {% else %}
   <div>로그인 해주세요.</div>
   {% endif %}

@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!--href="/"는 가장 처음이 되는 페이지란 뜻-->
+          <a class="navbar-brand" href="/">Foreign Exchange King</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/partner/">메인화면</a></li>
+            {% if user.is_authenticated %}
+            <!-- user가 로그인 했는지 물어보는 것 -->
+            <li><a href="/partner/menu/">판매 통화(Currency)</a></li>
+            <li><a href="/partner/order/">주문</a></li>
+            <li><a href="/partner/logout/">로그아웃</a></li>
+            {% else %}
+            <li><a href="/login/">로그인</a></li>
+            <li><a href="/signup/">회원가입</a></li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>

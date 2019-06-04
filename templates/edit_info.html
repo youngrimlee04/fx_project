@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}edit_partner_info{% endblock %}
+{% block body %}
+{% include "navbar.html" %}
+<div class="container">
+  당사의 업체 정보를 수정해주세요.
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-default btn-block">저장하기</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
