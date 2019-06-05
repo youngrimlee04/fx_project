@@ -20,4 +20,19 @@ class Partner(models.Model):
     description = models.TextField(
         verbose_name="상세 소개",
     )
-    
+
+class Menu(models.Model):
+    partner = models.ForeignKey(
+        Partner,
+        on_delete=models.CASCADE,
+    )
+    image = models.ImageField(
+        verbose_name="판매통화 이미지"
+    )
+    name = models.CharField(
+        max_length=50,
+        verbose_name="판매통화명"
+    )
+    price = models.FloatField(
+        verbose_name="통화 단위당 가격"
+    )

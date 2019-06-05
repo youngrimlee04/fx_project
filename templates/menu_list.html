@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block body%}
+{% include "navbar.html" %}
+<div class="container">
+  <div class="col-sm-6 col-sm-offset-3">
+    <h2>Currency List</h2>
+    <table class="table">
+      <tr>
+        <th>통화 이미지</td>
+        <th>통화명</td>
+        <th>단위가격</td>
+      </tr>
+      {% for menu in menu_list %}
+      <tr>
+        <td><img style="max-width:100px;" src="{{menu.image.url}}"></td>
+        <td><a href="/partner/menu/{{ menu.id }}/">{{menu.name}}</a></td>
+        <td> {{menu.price}} </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="/partner/menu/add/">
+      <button class="btn btn-default btn-block">판매통화 추가</button>
+    </a>
+  </div>
+</div>
+{% endblock %}

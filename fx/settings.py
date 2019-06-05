@@ -128,3 +128,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     # '/var/www/static/', static 폴더 안 파일들 사용하게끔 경로 설정
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media") # 미디어 파일은 src(Root)에 있다는게 BASE_DIR의 뜻
+MEDIA_URL = '/media/'
