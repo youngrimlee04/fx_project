@@ -8,7 +8,7 @@ class PartnerForm(ModelForm):
             "name",
             "contact",
             "address",
-            "description"
+            "description",
         )
         widgets = {
             "name": TextInput(attrs={"class":"form-control"}),

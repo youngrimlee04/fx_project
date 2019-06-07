@@ -137,4 +137,4 @@ def menu_edit(request, menu_id):
 def menu_delete(request, menu_id):
     menu = Menu.objects.get(id=menu_id)
     menu.delete()
-    return redirect("/partner/menu/") #템플릿 필요 없고 삭제 후 이 페이지로 보냄    
+    return redirect("/partner/menu/") #템플릿 필요 없고 삭제 후 이 페이지로 보냄
