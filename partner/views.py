@@ -111,3 +111,30 @@ def menu_add(request):
             ctx.update({"form":form})
 
     return render(request, "menu_add.html",ctx)
+
+def menu_detail(request, menu_id):
+    menu = Menu.objects.get(id=menu_id) # id가 menu_id인 menu를 가져와서
+    ctx = {"menu" : menu}
+    return render(request, "menu_detail.html",ctx)
+
+def menu_edit(request, menu_id):
+    ctx = {"replacement":"수정"}
+    menu = Menu.objects.get(id=menu_id)
+    if request.method=="GET":
+        form=MenuForm(instance=menu)
+        ctx.update({"form":form})
+    elif request.method=="POST":
+        form=MenuForm(request.POST, request.FILES, instance=menu)
+        if form.is_valid():
+            menu = form.save(commit=False)
+            menu.partner = request.user.partner
+            menu.save()
+            return redirect("/partner/menu/")
+        else: #에러시 저장 안하고 에러표시와 함께 처리
+            ctx.update({"form":form})
+    return render(request, "menu_add.html",ctx)
+
+def menu_delete(request, menu_id):
+    menu = Menu.objects.get(id=menu_id)
+    menu.delete()
+    return redirect("/partner/menu/") #템플릿 필요 없고 삭제 후 이 페이지로 보냄    

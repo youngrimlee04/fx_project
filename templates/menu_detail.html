@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block body%}
+{% include "navbar.html" %}
+<div class="container">
+  <div class="col-sm-6 col-sm-offset-3">
+    <table class="table">
+      <tr>
+        <th>사진</th>
+        <td><img style="width:80%;" src="{{menu.image.url}}"</td>
+      </tr>
+      <tr>
+        <th>통화명</th>
+        <td>{{menu.name}}</td>
+      </tr>
+      <tr>
+        <th>가격</th>
+        <td>{{menu.price}}</td>
+      </tr>
+    </table>
+    <a href="/partner/menu/{{ menu.id }}/edit/">
+      <button class="btn btn-default btn-block">수정하기</button>
+    </a>
+    <a href="/partner/menu/{{ menu.id }}/delete/">
+      <button class="btn btn-danger btn-block">삭제하기</button>
+    </a>
+  </div>
+</div>
+{% endblock %}
