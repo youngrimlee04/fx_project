@@ -4,7 +4,8 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
-from partner.models import Partner #Partner 폴더의 모델 가져와서 씀
+from partner.models import Partner,Menu
+from client.models import Order, OrderItem
 
 # Create your views here.
 def index(request):
@@ -14,7 +15,7 @@ def index(request):
     }
     return render(request, "main.html", ctx)
 
-def common_login(request,ctx,group):
+def common_login(request, ctx, group):
     if request.method == "GET":
         pass
     elif request.method == "POST":
@@ -49,7 +50,7 @@ def login(request):
     ctx = {"is_client":True}
     return common_login(request, ctx,"client")
 
-def common_signup(request, ctx,group):
+def common_signup(request, ctx, group):
     if request.method == "GET":
         pass
     elif request.method == "POST":
@@ -70,3 +71,38 @@ def common_signup(request, ctx,group):
 def signup(request):
     ctx = {"is_client":True}
     return common_signup(request, ctx,"client")
+
+def order(request, partner_id):
+    ctx = {}
+    # if request.user.is_anonymous or request.user.partner is None:
+    #     return redirect("/partner/")
+    partner = Partner.objects.get(id=partner_id)
+    menu_list = Menu.objects.filter(partner=partner)
+
+    if request.method == "GET":
+        ctx.update({
+            "partner": partner,
+            "menu_list": menu_list,
+        })
+    elif request.method == "POST":
+        # menu_dict = {}
+        order = Order.objects.create(
+            client=request.user.client,
+            address="test",
+        )
+        for menu in menu_list:
+            menu_count = request.POST.get(str(menu.id)) #order_menu_list에 수량 input에 있는 menu.id 가져옴
+            # if int(menu_count) > 0:
+            #     menu_dict.update({ str(menu.id): menu_count })
+            menu_count = int(menu_count) #모든 post 방식은 text로 받으니 int 변환 필요
+            if menu_count > 0:
+                item = OrderItem.objects.create( #model 가서 orderitem 보기
+                    order=order,
+                    menu=menu,
+                    count=menu_count
+                )
+                # order.items.add(item) 이미 위에서 create 했으니 add할 필요 없음
+
+        return redirect("/")
+
+    return render(request, "order_menu_list.html", ctx)

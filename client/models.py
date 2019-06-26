@@ -20,4 +20,11 @@ class Order(models.Model):
 
     items = models.ManyToManyField(
         Menu,
+        through='OrderItem',
+        through_fields=('order', 'menu'),
     )
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    count = models.PositiveSmallIntegerField()

@@ -33,6 +33,9 @@ class Menu(models.Model):
         max_length=50,
         verbose_name="판매통화명"
     )
+    # price = models.PositiveIntegerField(
+    #     verbose_name="통화단위당 가격"
+    # )
     price = models.FloatField(
         verbose_name="통화 단위당 가격"
     )

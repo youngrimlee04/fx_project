@@ -4,6 +4,7 @@ from .views import (
     edit_info,
     signup, login,logout,
     menu, menu_add, menu_detail,menu_edit,menu_delete,
+    order
 )
 
 urlpatterns = [
@@ -17,4 +18,5 @@ urlpatterns = [
     url(r'^menu/(?P<menu_id>\d+)/$', menu_detail, name="menu_detail"),
     url(r'^menu/(?P<menu_id>\d+)/edit/$', menu_edit, name="menu_edit"),
     url(r'^menu/(?P<menu_id>\d+)/delete/$', menu_delete, name="menu_delete"),
+    url(r'^order/$', order,name="order")
 ]
