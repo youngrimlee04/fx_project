@@ -2,10 +2,16 @@ from django.contrib.auth import (
     authenticate,
     login as auth_login,
 )
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect
 from partner.models import Partner,Menu
 from client.models import Order, OrderItem
+
+URL_LOGIN = '/client/login/'
+# Create your views here.
+def partner_group_check(user): #group은 name이라는 fieled 가지므로 이 fieled 체크해야 함
+    return "client" in [group.name for group in user.groups.all()]
 
 # Create your views here.
 def index(request):
@@ -72,6 +78,8 @@ def signup(request):
     ctx = {"is_client":True}
     return common_signup(request, ctx,"client")
 
+@login_required(login_url=URL_LOGIN)
+@user_passes_test(partner_group_check, login_url=URL_LOGIN)
 def order(request, partner_id):
     ctx = {}
     # if request.user.is_anonymous or request.user.partner is None:
