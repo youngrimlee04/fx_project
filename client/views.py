@@ -8,10 +8,6 @@ from django.shortcuts import render, redirect
 from partner.models import Partner,Menu
 from client.models import Order, OrderItem
 
-URL_LOGIN = '/client/login/'
-# Create your views here.
-def partner_group_check(user): #group은 name이라는 fieled 가지므로 이 fieled 체크해야 함
-    return "client" in [group.name for group in user.groups.all()]
 
 # Create your views here.
 def index(request):
@@ -20,6 +16,7 @@ def index(request):
         "partner_list" :partner_list
     }
     return render(request, "main.html", ctx)
+
 
 def common_login(request, ctx, group):
     if request.method == "GET":
@@ -56,6 +53,7 @@ def login(request):
     ctx = {"is_client":True}
     return common_login(request, ctx,"client")
 
+
 def common_signup(request, ctx, group):
     if request.method == "GET":
         pass
@@ -78,8 +76,6 @@ def signup(request):
     ctx = {"is_client":True}
     return common_signup(request, ctx,"client")
 
-@login_required(login_url=URL_LOGIN)
-@user_passes_test(partner_group_check, login_url=URL_LOGIN)
 def order(request, partner_id):
     ctx = {}
     # if request.user.is_anonymous or request.user.partner is None:

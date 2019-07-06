@@ -15,8 +15,9 @@ from .models import Menu
 
 URL_LOGIN = '/partner/login/'
 # Create your views here.
-def partner_group_check(user): #group은 name이라는 fieled 가지므로 이 fieled 체크해야 함
+def partner_group_check(user):
     return "partner" in [group.name for group in user.groups.all()]
+
 
 def index(request): #ctx에 담아서 form 넘김
     ctx = {}
@@ -91,8 +92,8 @@ def edit_info(request):
 
     return render(request, "edit_info.html",ctx)
 
-@login_required(login_url=URL_LOGIN)
-@user_passes_test(partner_group_check, login_url=URL_LOGIN)
+# @login_required(login_url=URL_LOGIN)
+# @user_passes_test(partner_group_check, login_url=URL_LOGIN)
 def menu(request): # Declare the ForeignKey with related_query_name
     ctx={}
     # if request.user.is_anonymous or request.user.partner is None:
