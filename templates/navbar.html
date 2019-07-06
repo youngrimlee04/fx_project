@@ -1,3 +1,4 @@
+{% load filter %}
 <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -13,7 +14,9 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/partner/">메인화면</a></li>
-            {% if user.is_authenticated %}
+            {% if request.user|has_group:"client" %}
+            <li><a href="/partner/logout/">로그아웃</a></li>
+            {% elif user.is_authenticated %}
             <!-- user가 로그인 했는지 물어보는 것 -->
             <li><a href="/partner/menu/">판매 통화(Currency) 목록</a></li>
             <li><a href="/partner/order/">주문</a></li>
